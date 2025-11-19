@@ -12,14 +12,12 @@ class RomanConverter {
         let result = 0;
         const upperRoman = roman.toUpperCase();
 
-        // Validar caracteres permitidos
         const validChars = /^[IVXLCDM]+$/i;
         if (!validChars.test(upperRoman)) {
             const invalidChar = upperRoman.split('').find(char => !romanNumerals[char]);
             throw new Error(`Invalid Roman numeral: ${invalidChar || 'Invalid characters'}`);
         }
 
-        // Validar reglas básicas de números romanos (menos estricto)
         this.validateRomanNumeral(upperRoman);
 
         for (let i = 0; i < upperRoman.length; i++) {
@@ -27,7 +25,6 @@ class RomanConverter {
             const next = romanNumerals[upperRoman[i + 1]];
 
             if (next && current < next) {
-                // Validar que la resta sea válida
                 if (!this.isValidSubtraction(upperRoman[i], upperRoman[i + 1])) {
                     throw new Error(`Invalid Roman numeral: Invalid subtraction "${upperRoman[i]}${upperRoman[i + 1]}"`);
                 }
@@ -43,22 +40,21 @@ class RomanConverter {
     static isValidSubtraction(smaller, larger) {
         const validSubtractions = {
             'I': ['V', 'X'],
-            'X': ['L', 'C'], 
+            'X': ['L', 'C'],
             'C': ['D', 'M']
         };
         return validSubtractions[smaller] && validSubtractions[smaller].includes(larger);
     }
 
     static validateRomanNumeral(roman) {
-        // Reglas de validación básicas (menos restrictivas)
         const invalidPatterns = [
-            /IIII/, /XXXX/, /CCCC/, /MMMM/, // Más de 3 repeticiones
-            /VV/, /LL/, /DD/, // Repetición de V, L, D
-            /IL/, /IC/, /ID/, /IM/, // Restas inválidas con I
-            /VX/, /VL/, /VC/, /VD/, /VM/, // Restas inválidas con V
-            /XD/, /XM/, // Restas inválidas con X (excepto en casos históricos)
-            /LC/, /LD/, /LM/, // Restas inválidas con L
-            /DM/ // Restas inválidas con D
+            /IIII/, /XXXX/, /CCCC/, /MMMM/,
+            /VV/, /LL/, /DD/,
+            /IL/, /IC/, /ID/, /IM/,
+            /VX/, /VL/, /VC/, /VD/, /VM/,
+            /XD/, /XM/,
+            /LC/, /LD/, /LM/,
+            /DM/
         ];
 
         for (const pattern of invalidPatterns) {
@@ -67,26 +63,21 @@ class RomanConverter {
             }
         }
 
-        // Validación adicional para símbolos que no pueden restar múltiples veces
         this.validateSubtractionRules(roman);
     }
 
     static validateSubtractionRules(roman) {
-        // Un símbolo solo puede restar a uno de los dos símbolos siguientes inmediatos
         for (let i = 0; i < roman.length - 1; i++) {
             const current = roman[i];
             const next = roman[i + 1];
             const currentVal = this.getRomanValue(current);
             const nextVal = this.getRomanValue(next);
             
-            // Si es una resta
             if (currentVal < nextVal) {
-                // Verificar que sea una resta válida
                 if (!this.isValidSubtraction(current, next)) {
                     throw new Error(`Invalid Roman numeral: "${current}${next}" is not a valid subtraction`);
                 }
                 
-                // No puede haber otro símbolo después en una resta múltiple
                 if (i < roman.length - 2) {
                     const nextNextVal = this.getRomanValue(roman[i + 2]);
                     if (nextNextVal > currentVal) {
