@@ -1,17 +1,25 @@
 {
-  "name": "despliegue-tp",
+  "name": "roman-converter",
   "version": "1.0.0",
   "description": "Roman numeral converter API",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node server.js",
-    "test": "jest"
+    "dev": "node index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "express": "^4.18.2"
   },
   "devDependencies": {
     "jest": "^29.7.0"
-  }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": ["roman", "converter", "api", "numbers"],
+  "author": "Tu Nombre",
+  "license": "MIT"
 }

@@ -6,15 +6,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static('public')); // Servir archivos estáticos
-app.use(express.urlencoded({ extended: true })); // Para procesar formularios
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
-// Ruta principal - sirve el HTML
+// Ruta principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// API endpoints (los que ya teníamos)
+// API endpoints
 app.get('/api/convert', (req, res) => {
     try {
         const { input } = req.query;
@@ -78,6 +78,39 @@ app.get('/api/convert/number/:number', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+// Función para encontrar un puerto disponible
+function findAvailablePort(startPort) {
+    return new Promise((resolve, reject) => {
+        const net = require('net');
+        const server = net.createServer();
+        
+        server.listen(startPort, () => {
+            server.close(() => {
+                resolve(startPort);
+            });
+        });
+        
+        server.on('error', () => {
+            resolve(findAvailablePort(startPort + 1));
+        });
+    });
+}
+
+// Iniciar servidor con puerto disponible
+async function startServer() {
+    try {
+        const availablePort = await findAvailablePort(PORT);
+        
+        app.listen(availablePort, () => {
+            console.log('🚀 Roman Converter Server started!');
+            console.log(`📍 Local: http://localhost:${availablePort}`);
+            console.log(`🌐 Network: http://${require('os').hostname()}:${availablePort}`);
+            console.log('⚡ Press Ctrl+C to stop');
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to start server:', error);
+    }
+}
+
+startServer();
