@@ -1,11 +1,11 @@
 {
   "version": 2,
   "builds": [
-    { "src": "convertidor-a-romanos/index.js", "use": "@vercel/node" },
-    { "src": "convertidor-a-romanos/public/**", "use": "@vercel/static" }
+    { "src": "index.js", "use": "@vercel/node" },
+    { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "convertidor-a-romanos/index.js" },
-    { "src": "/(.*)", "dest": "convertidor-a-romanos/public/index.html" }
+    { "src": "/api/(.*)", "dest": "/index.js" },
+    { "src": "/(.*)", "dest": "/index.js" }
   ]
 }
