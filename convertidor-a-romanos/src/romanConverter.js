@@ -1,8 +1,9 @@
 class RomanConverter {
     static romanToInt(roman) {
-        if (!roman || typeof roman !== 'string') {
-            throw new Error('Input must be a non-empty string');
-        }
+        if (typeof roman !== 'string' || roman.trim() === '') {
+    throw new Error('Input must be a non-empty string');
+        }   
+
 
         const romanNumerals = {
             'I': 1, 'V': 5, 'X': 10, 'L': 50,
@@ -104,7 +105,7 @@ class RomanConverter {
 
     static intToRoman(num) {
         if (!Number.isInteger(num) || num <= 0 || num > 3999) {
-            throw new Error('El número debe estar entre 1 y 3999, inclusive.');
+            throw new Error('El número debe estar entre 1 y 3999, inclusive.'); 
         }
 
         const values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -124,14 +125,19 @@ class RomanConverter {
     }
 
     static convert(input) {
-        if (typeof input === 'string') {
-            return this.romanToInt(input);
-        } else if (typeof input === 'number') {
-            return this.intToRoman(input);
-        } else {
-            throw new Error('Input must be a string (Roman numeral) or number');
+    if (input === '') {
+        throw new Error('Input must be a string (Roman numeral) or number.');
+    }
+
+    if (typeof input === 'string') {
+        return this.romanToInt(input);
+    } else if (typeof input === 'number') {
+        return this.intToRoman(input);
+    } else {
+        throw new Error('Input must be a string (Roman numeral) or number');
         }
     }
+
 }
 
 module.exports = RomanConverter;

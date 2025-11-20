@@ -142,7 +142,7 @@ describe('Roman Converter', () => {
         });
 
         test('should throw error for invalid input in convert method', () => {
-            expect(() => RomanConverter.convert('')).toThrow('Input must be a non-empty string');
+            expect(() => RomanConverter.convert('')).toThrow('Input must be a string (Roman numeral) or number.');
             expect(() => RomanConverter.convert(null)).toThrow('Input must be a string (Roman numeral) or number');
             expect(() => RomanConverter.convert(undefined)).toThrow('Input must be a string (Roman numeral) or number');
             expect(() => RomanConverter.convert({})).toThrow('Input must be a string (Roman numeral) or number');
