@@ -47,6 +47,10 @@ app.get('/a2r', (req, res) => {
             return res.status(400).json({ error: 'Missing arabic parameter' });
         }
 
+        if (!/^\d+$/.test(arabic)) {
+            return res.status(400).json({ error: 'Invalid arabic value' });
+        }
+
         const number = parseInt(arabic);
 
         const result = RomanConverter.intToRoman(number);
