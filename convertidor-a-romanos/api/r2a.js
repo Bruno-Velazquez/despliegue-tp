@@ -10,8 +10,10 @@ export default function handler(req, res) {
         return res.status(400).json({ error: 'Missing roman parameter' });
     }
 
+    const romanClean = roman.toUpperCase().trim();
+    
     try {
-        const arabic = RomanConverter.romanToInt(roman.toUpperCase());
+        const arabic = RomanConverter.romanToInt(romanClean);
         return res.status(200).json({ arabic });
     } catch (error) {
         return res.status(400).json({ error: error.message });
