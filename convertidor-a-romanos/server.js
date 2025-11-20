@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { toRoman, fromRoman } = require('./index');
+const RomanConverter = require('./romanConverter'); 
 const app = express();
 
 app.use(cors());
@@ -19,13 +19,13 @@ app.get('/a2r', (req, res) => {
   }
 
   const arabic = parseInt(arabicStr, 10);
-  const result = toRoman(arabic);
 
-  if (typeof result !== "string" || result.includes("fuera de rango")) {
-    return res.status(400).json({ error: result });
+  try {
+    const result = RomanConverter.intToRoman(arabic);
+    return res.status(200).json({ roman: result });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
   }
-
-  return res.status(200).json({ roman: result });
 });
 
 
@@ -37,15 +37,13 @@ app.get('/r2a', (req, res) => {
     return res.status(400).json({ error: 'Parámetro "roman" requerido.' });
   }
 
-  const result = fromRoman(roman);
-
-  if (typeof result !== "number") {
-    return res.status(400).json({ error: result });
+  try {
+    const result = RomanConverter.romanToInt(roman);
+    return res.status(200).json({ arabic: result });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
   }
-
-  return res.status(200).json({ arabic: result });
 });
-
 
 // Ruta básica
 app.get("/", (req, res) => {

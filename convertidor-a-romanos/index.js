@@ -24,14 +24,14 @@ app.get('/', (req, res) => {
 // GET /r2a  (Romanos → Arábigos)
 app.get('/r2a', (req, res) => {
     try {
-        const { value } = req.query;
+        const { roman } = req.query;
 
-        if (!value) {
-            return res.status(400).json({ error: 'Missing value parameter' });
+        if (!roman) {
+            return res.status(400).json({ error: 'Missing roman parameter' });
         }
 
-        const result = RomanConverter.romanToInt(value.toUpperCase());
-        return res.json({ input: value, result, type: 'roman to number' });
+        const result = RomanConverter.romanToInt(roman.toUpperCase());
+        return res.json({ arabic: result });
 
     } catch (error) {
         return res.status(400).json({ error: error.message });
@@ -41,16 +41,16 @@ app.get('/r2a', (req, res) => {
 // GET /a2r  (Arábigos → Romanos)
 app.get('/a2r', (req, res) => {
     try {
-        const { value } = req.query;
+        const { arabic } = req.query;
 
-        if (!value) {
-            return res.status(400).json({ error: 'Missing value parameter' });
+        if (!arabic) {
+            return res.status(400).json({ error: 'Missing arabic parameter' });
         }
 
-        const number = parseInt(value);
+        const number = parseInt(arabic);
 
         const result = RomanConverter.intToRoman(number);
-        return res.json({ input: number, result, type: 'number to roman' });
+        return res.json({ roman: result });
 
     } catch (error) {
         return res.status(400).json({ error: error.message });
