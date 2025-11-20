@@ -110,13 +110,13 @@ describe('Roman Converter', () => {
         });
 
         test('should throw error for invalid input types', () => {
-            expect(() => RomanConverter.intToRoman(0)).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman(4000)).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman(-1)).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman(3.14)).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman('10')).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman(null)).toThrow('Number must be an integer between 1 and 3999');
-            expect(() => RomanConverter.intToRoman(undefined)).toThrow('Number must be an integer between 1 and 3999');
+            expect(() => RomanConverter.intToRoman(0)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman(4000)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman(-1)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman(3.14)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman('10')).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman(null)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
+            expect(() => RomanConverter.intToRoman(undefined)).toThrow('El número debe estar entre 1 y 3999, inclusive.');
         });
 
         test('should convert round numbers correctly', () => {
@@ -172,7 +172,7 @@ describe('Roman Converter', () => {
                 RomanConverter.intToRoman(0);
                 fail('Should have thrown an error');
             } catch (error) {
-                expect(error.message).toBe('Number must be an integer between 1 and 3999');
+                expect(error.message).toBe('El número debe estar entre 1 y 3999, inclusive.');
             }
 
             try {

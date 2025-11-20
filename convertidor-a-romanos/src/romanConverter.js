@@ -104,7 +104,7 @@ class RomanConverter {
 
     static intToRoman(num) {
         if (!Number.isInteger(num) || num <= 0 || num > 3999) {
-            throw new Error('el número debe estar entre 1 y 3999, inclusive.');
+            throw new Error('El número debe estar entre 1 y 3999, inclusive.');
         }
 
         const values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
