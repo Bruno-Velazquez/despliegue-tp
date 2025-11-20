@@ -83,3 +83,4 @@ if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
 
 // Export para Vercel
 module.exports = app;
+
